@@ -11,7 +11,11 @@ import SwiftUI
 struct TodoAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            let context = PersistenceController.shared.container.viewContext
+            let dataHolder = DataHolder(context)
+            TaskListView()
+                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                .environmentObject(dataHolder)
         }
     }
 }
